@@ -1,5 +1,7 @@
 # Gemma decoding on a 2019 Intel MacBook Pro
 
+[Qwen model on Hugging Face](https://huggingface.co/Parth1612/Qwen2.5-Coder-0.5B-Instruct-Intel-Mac-GGUF) · [Download the Intel Mac model bundle (.zip)](https://github.com/0x89Parth/intel-mac-llm-bench/releases/download/intel-qwen-v1/qwen-intel-mac-prompt-lookup-v1.zip) · [GitHub release and checksum](https://github.com/0x89Parth/intel-mac-llm-bench/releases/tag/intel-qwen-v1) · [All benchmark results](BENCHMARKS.md)
+
 Rebuilding the ToshLLM inference engine for the Core i9 raised sustained Gemma 4 26B-A4B output from **1.72 to 4.14 tokens per second (2.41×)** on one 2019 MacBook Pro. Both engines ran the same Q4_K weights and offloaded three layers to the Radeon Pro 560X. [Per-request timings, token IDs and thermal samples](results/gemma-avx2.json)
 
 | Same laptop, same model | Intel compatibility build | AVX2 build |
@@ -12,7 +14,7 @@ Rebuilding the ToshLLM inference engine for the Core i9 raised sustained Gemma 4
 
 ## More measurements
 
-The Intel Qwen edit package includes the official Q4_K_M weights, the tested launcher, the model card and its license. Install the Intel AVX2 engine as described below, extract the package and run `sh ./run-intel-mac.sh`. [Model on Hugging Face](https://huggingface.co/Parth1612/Qwen2.5-Coder-0.5B-Instruct-Intel-Mac-GGUF) · [Download the GitHub release](https://github.com/0x89Parth/intel-mac-llm-bench/releases/tag/intel-qwen-v1) · [Model card and settings](profiles/qwen-intel-mac/README.md)
+The Intel Qwen edit package includes the official Q4_K_M weights, the tested launcher, the model card and its license. Install the Intel AVX2 engine as described below, extract the package and run `sh ./run-intel-mac.sh`. [Model card and settings](profiles/qwen-intel-mac/README.md)
 
 | Hardware and workload | Measured result |
 |---|---|
