@@ -1,0 +1,189 @@
+{
+  "engine": "ToshLLM llama-server",
+  "model": "Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf",
+  "model_bytes": 16796015648,
+  "prompt": "Copy this sentence exactly: The Moon orbits Earth.",
+  "expected": "The Moon orbits Earth.",
+  "order": [
+    2,
+    3,
+    3,
+    2
+  ],
+  "note": "No production model server or other benchmark running at start; plugged in; four fresh server processes in ABBA order; file cache not dropped.",
+  "settings": {
+    "context": 256,
+    "batch": 16,
+    "ubatch": 16,
+    "threads": 3,
+    "max_output_tokens": 10,
+    "temperature": 0,
+    "seed": 42,
+    "warmup": false,
+    "mmap": true,
+    "tosh_fa_amd": 1,
+    "cooldown_s": 12
+  },
+  "trials": [
+    {
+      "requested_layers": 2,
+      "cpu_speed_limit_before_pct": 79,
+      "load_wall_s": 10.708,
+      "answer": "The Moon orbits Earth.",
+      "matches_expected": true,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 23,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 21043.883,
+        "prompt_per_token_ms": 914.9514347826088,
+        "prompt_per_second": 1.0929541853088616,
+        "predicted_n": 6,
+        "predicted_ms": 2946.112,
+        "predicted_per_token_ms": 589.2224,
+        "predicted_per_second": 1.6971520430995155
+      },
+      "request_wall_s": 23.996,
+      "end_to_end_wall_s": 34.703,
+      "cpu_speed_limit_after_pct": 56,
+      "offloaded_layers": 2,
+      "metal_buffers_mib": {
+        "model": 1147.06,
+        "kv": 1.0,
+        "compute": 19.48
+      },
+      "total_layers_including_output": 31
+    },
+    {
+      "requested_layers": 3,
+      "cpu_speed_limit_before_pct": 75,
+      "load_wall_s": 4.07,
+      "answer": "The Moon orbits Earth.",
+      "matches_expected": true,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 23,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 8960.892,
+        "prompt_per_token_ms": 389.604,
+        "prompt_per_second": 2.566708760690342,
+        "predicted_n": 6,
+        "predicted_ms": 2166.568,
+        "predicted_per_token_ms": 433.31360000000006,
+        "predicted_per_second": 2.307797401235502
+      },
+      "request_wall_s": 11.131,
+      "end_to_end_wall_s": 15.201,
+      "cpu_speed_limit_after_pct": 54,
+      "offloaded_layers": 3,
+      "metal_buffers_mib": {
+        "model": 1710.28,
+        "kv": 2.0,
+        "compute": 19.49
+      },
+      "total_layers_including_output": 31
+    },
+    {
+      "requested_layers": 3,
+      "cpu_speed_limit_before_pct": 62,
+      "load_wall_s": 7.635,
+      "answer": "The Moon orbits Earth.",
+      "matches_expected": true,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 23,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 10503.273,
+        "prompt_per_token_ms": 456.66404347826085,
+        "prompt_per_second": 2.1897936005281404,
+        "predicted_n": 6,
+        "predicted_ms": 2364.109,
+        "predicted_per_token_ms": 472.8218,
+        "predicted_per_second": 2.114961704388419
+      },
+      "request_wall_s": 12.871,
+      "end_to_end_wall_s": 20.506,
+      "cpu_speed_limit_after_pct": 50,
+      "offloaded_layers": 3,
+      "metal_buffers_mib": {
+        "model": 1710.28,
+        "kv": 2.0,
+        "compute": 19.49
+      },
+      "total_layers_including_output": 31
+    },
+    {
+      "requested_layers": 2,
+      "cpu_speed_limit_before_pct": 75,
+      "load_wall_s": 2.544,
+      "answer": "The Moon orbits Earth.",
+      "matches_expected": true,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 23,
+        "total_tokens": 29,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 23,
+        "prompt_ms": 9017.458,
+        "prompt_per_token_ms": 392.0633913043479,
+        "prompt_per_second": 2.5506079429480013,
+        "predicted_n": 6,
+        "predicted_ms": 2256.114,
+        "predicted_per_token_ms": 451.2228,
+        "predicted_per_second": 2.21620006790437
+      },
+      "request_wall_s": 11.276,
+      "end_to_end_wall_s": 13.82,
+      "cpu_speed_limit_after_pct": 52,
+      "offloaded_layers": 2,
+      "metal_buffers_mib": {
+        "model": 1147.06,
+        "kv": 1.0,
+        "compute": 19.48
+      },
+      "total_layers_including_output": 31
+    }
+  ],
+  "summary_medians": {
+    "2": {
+      "successful_trials": 2,
+      "request_wall_s": 17.636,
+      "load_wall_s": 6.626,
+      "prompt_tokens_per_s": 1.8217810641284315,
+      "generation_tokens_per_s": 1.9566760555019427
+    },
+    "3": {
+      "successful_trials": 2,
+      "request_wall_s": 12.001000000000001,
+      "load_wall_s": 5.8525,
+      "prompt_tokens_per_s": 2.378251180609241,
+      "generation_tokens_per_s": 2.2113795528119606
+    }
+  }
+}

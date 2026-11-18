@@ -10,6 +10,19 @@ Rebuilding the ToshLLM inference engine for the Core i9 raised sustained Gemma 4
 | Time to answer a separate coding question after load | 59.54 s | 30.61 s |
 | Server startup, measured once | 7.62 s | 57.78 s |
 
+## More measurements
+
+The Intel Qwen edit package includes the official Q4_K_M weights, the tested launcher, the model card and its license. Install the Intel AVX2 engine as described below, extract the package and run `sh ./run-intel-mac.sh`. [Download the model package](https://github.com/0x89Parth/intel-mac-llm-bench/releases/tag/intel-qwen-v1) · [Model card and settings](profiles/qwen-intel-mac/README.md)
+
+| Hardware and workload | Measured result |
+|---|---|
+| [Intel Qwen code edits](BENCHMARKS.md#faster-code-edits-on-the-intel-laptop) | Prompt lookup raised output from 59.89 to 89.50 tokens/s on a verified rename. The complete request fell from 3.185 to 2.408 seconds. Fresh explanations stayed near 60 tokens/s. |
+| [Intel Gemma prompt lookup](results/intel-gemma-prompt-lookup.json) | On a shorter rename, median output fell from 4.52 to 4.18 tokens/s with lookup. All four answers passed the functional checks. |
+| [M2 Pro decoding](BENCHMARKS.md#m2-pro-code-edits-with-prompt-lookup) | Qwen generated a correct rename at 197.11 tokens/s with stock Metal and 697.79 with prompt lookup. On a second edit, both settings missed the requested change. |
+| [M2 Pro batch sizes](BENCHMARKS.md#m2-pro-measurements) | Stock Metal processed prompts fastest for both models. The smaller batch showed no repeatable gain in output speed. |
+
+The [full benchmark report](BENCHMARKS.md) covers Radeon offload, Metal kernel timings and reproduction commands. Download the [M2 Pro dashboard](results/apple-m2-pro-dashboard.html) and open it in a browser to explore the recorded trials offline.
+
 ## What changed
 
 The laptop had a Core i9-9880H, 16 GB of RAM, a Radeon Pro 560X with 4 GB of VRAM, and macOS Ventura 13.6.5. The baseline was ToshLLM v0.88.0's Intel macOS 12+ compatibility binary, which targets SSE4.2. The local Ventura build enabled AVX2, FMA, F16C and BMI2 on the same llama.cpp revision with the same ToshLLM patches and a Ventura SDK compatibility guard. The build script checks for an AVX2 instruction in the quantization code, verifies the embedded shader source fingerprints and reuses the release's compiled Metal libraries. This comparison measures the complete builds. [Upstream release](https://github.com/engeldlgado/toshllm/releases/tag/v0.88.0) · [Build script](build-avx2.sh)

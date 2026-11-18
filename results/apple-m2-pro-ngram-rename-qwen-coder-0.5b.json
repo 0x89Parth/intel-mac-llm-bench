@@ -1,0 +1,404 @@
+{
+  "date_utc": "2026-11-18T21:45:49.501073+00:00",
+  "hardware": "Apple M2 Pro",
+  "memory_bytes": 17179869184,
+  "macos": "27.0",
+  "engine": "llama.cpp b12521",
+  "engine_archive_sha256": "6ebeeea8575081ff968eb1c26f6fffcafe8e3ff2a0fb5d548c0aea7f5575e038",
+  "model": "Qwen2.5-Coder-0.5B-Instruct Q4_K_M",
+  "model_sha256": "1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32",
+  "server_args": [
+    "--device",
+    "MTL0",
+    "-ngl",
+    "999",
+    "-t",
+    "6",
+    "-tb",
+    "6",
+    "-c",
+    "2048",
+    "-np",
+    "1",
+    "--cache-ram",
+    "0",
+    "--offline",
+    "--no-ui",
+    "-lv",
+    "4"
+  ],
+  "mode_args": {
+    "stock": [],
+    "lookup": [
+      "--spec-type",
+      "ngram-simple",
+      "--spec-draft-n-max",
+      "64"
+    ]
+  },
+  "order": [
+    "stock",
+    "lookup",
+    "lookup",
+    "stock"
+  ],
+  "procedure": "Each block starts a fresh loopback server, warms the single rename workload. Three measured repetitions per task per block. Generated token IDs are SHA-256 hashed as compact JSON arrays. Rate excludes prefill; wall_seconds includes the complete inference request.",
+  "workloads": {
+    "rename": "<|im_start|>system\nYou are a helpful coding assistant.<|im_end|>\n<|im_start|>user\nHere is the current Python file:\n\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n\nRename the first function from summarize_orders to total_by_customer. Its new signature must be exactly \"def total_by_customer(orders):\". Return the complete revised Python file. Leave all three function bodies and all other names unchanged.<|im_end|>\n<|im_start|>assistant\n"
+  },
+  "expected_edit": "def total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)",
+  "request": {
+    "n_predict": 256,
+    "temperature": 0,
+    "seed": 42,
+    "return_tokens": true,
+    "cache_prompt": false,
+    "stream": false
+  },
+  "blocks": [
+    {
+      "arm": "stock",
+      "trials": [
+        {
+          "task": "rename",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.157,
+            "prompt_per_token_ms": 0.26162801932367147,
+            "prompt_per_second": 3822.220580903669,
+            "predicted_n": 141,
+            "predicted_ms": 712.28,
+            "predicted_per_token_ms": 5.087714285714285,
+            "predicted_per_second": 196.55191778514066
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.767858,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.066,
+            "prompt_per_token_ms": 0.26118840579710145,
+            "prompt_per_second": 3828.6538674952835,
+            "predicted_n": 141,
+            "predicted_ms": 707.831,
+            "predicted_per_token_ms": 5.055935714285714,
+            "predicted_per_second": 197.78732494055782
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.763492,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.019,
+            "prompt_per_token_ms": 0.2609613526570048,
+            "prompt_per_second": 3831.985042299932,
+            "predicted_n": 141,
+            "predicted_ms": 691.102,
+            "predicted_per_token_ms": 4.936442857142857,
+            "predicted_per_second": 202.5750178700105
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.746687,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.305.863 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "lookup",
+      "trials": [
+        {
+          "task": "rename",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.644,
+            "prompt_per_token_ms": 0.2639806763285024,
+            "prompt_per_second": 3788.1560647097576,
+            "predicted_n": 141,
+            "predicted_ms": 201.281,
+            "predicted_per_token_ms": 1.4377214285714286,
+            "predicted_per_second": 695.5450340568657,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.25764,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.164,
+            "prompt_per_token_ms": 0.26166183574879226,
+            "prompt_per_second": 3821.726608079167,
+            "predicted_n": 141,
+            "predicted_ms": 199.788,
+            "predicted_per_token_ms": 1.427057142857143,
+            "predicted_per_second": 700.7427873545959,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.255781,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.296,
+            "prompt_per_token_ms": 0.26229951690821257,
+            "prompt_per_second": 3812.435538529542,
+            "predicted_n": 141,
+            "predicted_ms": 199.606,
+            "predicted_per_token_ms": 1.4257571428571427,
+            "predicted_per_second": 701.3817219923249,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.255584,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.228.269 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "lookup",
+      "trials": [
+        {
+          "task": "rename",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.126,
+            "prompt_per_token_ms": 0.2614782608695652,
+            "prompt_per_second": 3824.4097106750914,
+            "predicted_n": 141,
+            "predicted_ms": 201.482,
+            "predicted_per_token_ms": 1.4391571428571428,
+            "predicted_per_second": 694.8511529565917,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.257425,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 53.985,
+            "prompt_per_token_ms": 0.26079710144927537,
+            "prompt_per_second": 3834.3984440122254,
+            "predicted_n": 141,
+            "predicted_ms": 203.154,
+            "predicted_per_token_ms": 1.4511,
+            "predicted_per_second": 689.1323823306458,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.258864,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.15,
+            "prompt_per_token_ms": 0.26159420289855073,
+            "prompt_per_second": 3822.7146814404437,
+            "predicted_n": 141,
+            "predicted_ms": 199.992,
+            "predicted_per_token_ms": 1.4285142857142856,
+            "predicted_per_second": 700.0280011200448,
+            "draft_n": 144,
+            "draft_n_accepted": 117
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.255873,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.229.887 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "stock",
+      "trials": [
+        {
+          "task": "rename",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.316,
+            "prompt_per_token_ms": 0.2623961352657005,
+            "prompt_per_second": 3811.0317401870534,
+            "predicted_n": 141,
+            "predicted_ms": 724.195,
+            "predicted_per_token_ms": 5.172821428571429,
+            "predicted_per_second": 193.3180980260841
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.780209,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.39,
+            "prompt_per_token_ms": 0.2627536231884058,
+            "prompt_per_second": 3805.8466629895197,
+            "predicted_n": 141,
+            "predicted_ms": 722.639,
+            "predicted_per_token_ms": 5.161707142857143,
+            "predicted_per_second": 193.7343542211256
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.778594,
+          "stop_type": "eos"
+        },
+        {
+          "task": "rename",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 207,
+            "prompt_ms": 54.288,
+            "prompt_per_token_ms": 0.2622608695652174,
+            "prompt_per_second": 3812.997347480107,
+            "predicted_n": 141,
+            "predicted_ms": 708.293,
+            "predicted_per_token_ms": 5.059235714285714,
+            "predicted_per_second": 197.65831372045184
+          },
+          "output_token_count": 141,
+          "output_tokens_sha256": "c91a765abc1a437fbc7d5a0981ab015be2ba0639f3c01c2351e90966aa1d83f7",
+          "content": "```python\ndef total_by_customer(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": true,
+          "functional_pass": true,
+          "wall_seconds": 0.764051,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.219.943 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    }
+  ],
+  "summary": {
+    "rename": {
+      "stock": {
+        "median_decode_tps": 197.10511575279625,
+        "range_decode_tps": [
+          193.3180980260841,
+          202.5750178700105
+        ],
+        "median_wall_seconds": 0.7659545000000001,
+        "output_lengths": [
+          141
+        ],
+        "drafted_tokens": 0,
+        "accepted_draft_tokens": 0
+      },
+      "lookup": {
+        "median_decode_tps": 697.7865175884552,
+        "range_decode_tps": [
+          689.1323823306458,
+          701.3817219923249
+        ],
+        "median_wall_seconds": 0.256649,
+        "output_lengths": [
+          141
+        ],
+        "drafted_tokens": 864,
+        "accepted_draft_tokens": 702
+      },
+      "same_token_ids_all_replies": true,
+      "edit_ast_correct_all": true,
+      "functional_pass_all": true,
+      "decode_ratio": 3.540174565857538
+    }
+  },
+  "upstream_method": "https://github.com/ggml-org/llama.cpp/blob/b12521/docs/speculative.md",
+  "functional_check": "After stripping a single Markdown code fence, require the Python AST to exactly equal the expected code with the first function renamed. On that known AST only, call all three functions using two customers, repeated orders, ranked amounts and rendered report lines."
+}

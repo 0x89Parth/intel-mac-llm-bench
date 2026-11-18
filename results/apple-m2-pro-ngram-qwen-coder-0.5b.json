@@ -1,0 +1,678 @@
+{
+  "date_utc": "2026-11-18T21:44:34.082452+00:00",
+  "hardware": "Apple M2 Pro",
+  "memory_bytes": 17179869184,
+  "macos": "27.0",
+  "engine": "llama.cpp b12521",
+  "engine_archive_sha256": "6ebeeea8575081ff968eb1c26f6fffcafe8e3ff2a0fb5d548c0aea7f5575e038",
+  "model": "Qwen2.5-Coder-0.5B-Instruct Q4_K_M",
+  "model_sha256": "1d9614638d18024d0fbb36575a15f1302a3adf044df10345688ec4f6e1c4ff32",
+  "server_args": [
+    "--device",
+    "MTL0",
+    "-ngl",
+    "999",
+    "-t",
+    "6",
+    "-tb",
+    "6",
+    "-c",
+    "2048",
+    "-np",
+    "1",
+    "--cache-ram",
+    "0",
+    "--offline",
+    "--no-ui",
+    "-lv",
+    "4"
+  ],
+  "mode_args": {
+    "stock": [],
+    "lookup": [
+      "--spec-type",
+      "ngram-simple",
+      "--spec-draft-n-max",
+      "64"
+    ]
+  },
+  "order": [
+    "stock",
+    "lookup",
+    "lookup",
+    "stock"
+  ],
+  "procedure": "Each block starts a fresh loopback server, warms both workloads, then alternates tasks. Three measured repetitions per task per block. Generated token IDs are SHA-256 hashed as compact JSON arrays. Rate excludes prefill; wall_seconds includes the complete inference request.",
+  "workloads": {
+    "edit": "<|im_start|>system\nYou are a helpful coding assistant.<|im_end|>\n<|im_start|>user\nChange the default limit in top_customers from 5 to 3. Return all three functions exactly as supplied with only that change. Output Python code only.\n\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)<|im_end|>\n<|im_start|>assistant\n",
+    "explain": "<|im_start|>system\nYou are a helpful coding assistant.<|im_end|>\n<|im_start|>user\nExplain to a junior programmer why sorting a list in place can surprise the caller, and give a small concrete Python example. Use around 100 words.<|im_end|>\n<|im_start|>assistant\n"
+  },
+  "expected_edit": "def summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=3):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)",
+  "request": {
+    "n_predict": 256,
+    "temperature": 0,
+    "seed": 42,
+    "return_tokens": true,
+    "cache_prompt": false,
+    "stream": false
+  },
+  "blocks": [
+    {
+      "arm": "stock",
+      "trials": [
+        {
+          "task": "edit",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.34,
+            "prompt_per_token_ms": 0.25315508021390376,
+            "prompt_per_second": 3950.147866497676,
+            "predicted_n": 140,
+            "predicted_ms": 693.251,
+            "predicted_per_token_ms": 4.98741726618705,
+            "predicted_per_second": 200.50457914954325
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.74201,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.414,
+            "prompt_per_token_ms": 0.4040377358490566,
+            "prompt_per_second": 2475.0163444475575,
+            "predicted_n": 256,
+            "predicted_ms": 1387.646,
+            "predicted_per_token_ms": 5.441749019607843,
+            "predicted_per_second": 183.7644471284463
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.410339,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.304,
+            "prompt_per_token_ms": 0.2529625668449198,
+            "prompt_per_second": 3953.154067309318,
+            "predicted_n": 140,
+            "predicted_ms": 701.952,
+            "predicted_per_token_ms": 5.050014388489209,
+            "predicted_per_second": 198.01923778264043
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.750592,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.098,
+            "prompt_per_token_ms": 0.3980754716981132,
+            "prompt_per_second": 2512.086453692293,
+            "predicted_n": 256,
+            "predicted_ms": 1294.234,
+            "predicted_per_token_ms": 5.075427450980392,
+            "predicted_per_second": 197.02773996047085
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.316507,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.291,
+            "prompt_per_token_ms": 0.25289304812834223,
+            "prompt_per_second": 3954.240764627519,
+            "predicted_n": 140,
+            "predicted_ms": 693.228,
+            "predicted_per_token_ms": 4.987251798561151,
+            "predicted_per_second": 200.51123151401848
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.741876,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.154,
+            "prompt_per_token_ms": 0.3991320754716981,
+            "prompt_per_second": 2505.4363240994608,
+            "predicted_n": 256,
+            "predicted_ms": 1245.644,
+            "predicted_per_token_ms": 4.884878431372549,
+            "predicted_per_second": 204.71338520476155
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.267959,
+          "stop_type": "limit"
+        }
+      ],
+      "hardware_log": [
+        "0.00.312.949 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "lookup",
+      "trials": [
+        {
+          "task": "explain",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.378,
+            "prompt_per_token_ms": 0.40335849056603773,
+            "prompt_per_second": 2479.1842080643655,
+            "predicted_n": 256,
+            "predicted_ms": 1253.906,
+            "predicted_per_token_ms": 4.917278431372549,
+            "predicted_per_second": 203.36452652750685
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.276486,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.574,
+            "prompt_per_token_ms": 0.25440641711229944,
+            "prompt_per_second": 3930.7184596628413,
+            "predicted_n": 140,
+            "predicted_ms": 171.051,
+            "predicted_per_token_ms": 1.2305827338129496,
+            "predicted_per_second": 812.6231357899107,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.219959,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.133,
+            "prompt_per_token_ms": 0.39873584905660375,
+            "prompt_per_second": 2507.9259925235415,
+            "predicted_n": 256,
+            "predicted_ms": 1303.655,
+            "predicted_per_token_ms": 5.112372549019608,
+            "predicted_per_second": 195.60389827063142
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.32592,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.01,
+            "prompt_per_token_ms": 0.2513903743315508,
+            "prompt_per_second": 3977.8770474367157,
+            "predicted_n": 140,
+            "predicted_ms": 170.06,
+            "predicted_per_token_ms": 1.223453237410072,
+            "predicted_per_second": 817.3585793249441,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.218412,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 20.763,
+            "prompt_per_token_ms": 0.3917547169811321,
+            "prompt_per_second": 2552.6176371429947,
+            "predicted_n": 256,
+            "predicted_ms": 1259.837,
+            "predicted_per_token_ms": 4.940537254901961,
+            "predicted_per_second": 202.40713679626808
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.281736,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 46.922,
+            "prompt_per_token_ms": 0.25091978609625665,
+            "prompt_per_second": 3985.337368398619,
+            "predicted_n": 140,
+            "predicted_ms": 168.662,
+            "predicted_per_token_ms": 1.2133956834532376,
+            "predicted_per_second": 824.1334740486891,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.216835,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.216.111 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "lookup",
+      "trials": [
+        {
+          "task": "edit",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.389,
+            "prompt_per_token_ms": 0.25341711229946523,
+            "prompt_per_second": 3946.0634324421276,
+            "predicted_n": 140,
+            "predicted_ms": 175.865,
+            "predicted_per_token_ms": 1.2652158273381295,
+            "predicted_per_second": 790.3789838796804,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.224741,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.354,
+            "prompt_per_token_ms": 0.4029056603773585,
+            "prompt_per_second": 2481.9705909899785,
+            "predicted_n": 256,
+            "predicted_ms": 1260.96,
+            "predicted_per_token_ms": 4.944941176470588,
+            "predicted_per_second": 202.22687476208603
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.283526,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.152,
+            "prompt_per_token_ms": 0.25214973262032087,
+            "prompt_per_second": 3965.8975229046487,
+            "predicted_n": 140,
+            "predicted_ms": 172.55,
+            "predicted_per_token_ms": 1.2413669064748203,
+            "predicted_per_second": 805.5636047522456,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.221138,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.105,
+            "prompt_per_token_ms": 0.3982075471698113,
+            "prompt_per_second": 2511.253257521914,
+            "predicted_n": 256,
+            "predicted_ms": 1291.16,
+            "predicted_per_token_ms": 5.063372549019608,
+            "predicted_per_second": 197.49682456086
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.313552,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.71,
+            "prompt_per_token_ms": 0.2551336898395722,
+            "prompt_per_second": 3919.513728778034,
+            "predicted_n": 140,
+            "predicted_ms": 211.127,
+            "predicted_per_token_ms": 1.5188992805755397,
+            "predicted_per_second": 658.3715015133072,
+            "draft_n": 144,
+            "draft_n_accepted": 120
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.260266,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.01,
+            "prompt_per_token_ms": 0.3964150943396227,
+            "prompt_per_second": 2522.608281770585,
+            "predicted_n": 256,
+            "predicted_ms": 1326.522,
+            "predicted_per_token_ms": 5.2020470588235295,
+            "predicted_per_second": 192.23201726017362
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.348732,
+          "stop_type": "limit"
+        }
+      ],
+      "hardware_log": [
+        "0.00.233.894 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    },
+    {
+      "arm": "stock",
+      "trials": [
+        {
+          "task": "explain",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.181,
+            "prompt_per_token_ms": 0.39964150943396226,
+            "prompt_per_second": 2502.2425758934896,
+            "predicted_n": 256,
+            "predicted_ms": 1276.31,
+            "predicted_per_token_ms": 5.00513725490196,
+            "predicted_per_second": 199.7947207183208
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.298806,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 1,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.621,
+            "prompt_per_token_ms": 0.2546577540106952,
+            "prompt_per_second": 3926.8389996010164,
+            "predicted_n": 140,
+            "predicted_ms": 727.791,
+            "predicted_per_token_ms": 5.235906474820144,
+            "predicted_per_second": 190.98889653760486
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.776861,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.231,
+            "prompt_per_token_ms": 0.4005849056603774,
+            "prompt_per_second": 2496.3496773585794,
+            "predicted_n": 256,
+            "predicted_ms": 1282.347,
+            "predicted_per_token_ms": 5.028811764705882,
+            "predicted_per_second": 198.85413230584234
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.304828,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 2,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.871,
+            "prompt_per_token_ms": 0.2559946524064171,
+            "prompt_per_second": 3906.331599507008,
+            "predicted_n": 140,
+            "predicted_ms": 726.842,
+            "predicted_per_token_ms": 5.229079136690648,
+            "predicted_per_second": 191.23826085999434
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.776353,
+          "stop_type": "eos"
+        },
+        {
+          "task": "explain",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 53,
+            "prompt_ms": 21.073,
+            "prompt_per_token_ms": 0.3976037735849057,
+            "prompt_per_second": 2515.066672993878,
+            "predicted_n": 256,
+            "predicted_ms": 1372.49,
+            "predicted_per_token_ms": 5.382313725490196,
+            "predicted_per_second": 185.79370341496113
+          },
+          "output_token_count": 256,
+          "output_tokens_sha256": "fc7a105e33d9b5b248f2fb76539e28cb9d33f5a407271dba2afc832ce195eba5",
+          "content": "Sorting a list in place can surprise a junior programmer because it modifies the original list in place, which can lead to unexpected behavior. This is because sorting a list in place modifies the list in place, which means that the original list is not modified. This can lead to unexpected behavior, such as the list being sorted in reverse order, or the list being sorted in a way that is not consistent with the original list.\n\nHere's a small concrete Python example that demonstrates the surprise of sorting a list in place:\n\n```python\ndef sort_in_place(lst):\n    # Sort the list in place\n    lst.sort()\n    return lst\n\n# Example usage\noriginal_list = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nsorted_list = sort_in_place(original_list)\nprint(sorted_list)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]\n```\n\nIn this example, the `sort_in_place` function takes a list as an argument and sorts it in place. The `sort` method is used to sort the list in place,",
+          "edit_ast_correct": null,
+          "wall_seconds": 1.395196,
+          "stop_type": "limit"
+        },
+        {
+          "task": "edit",
+          "repetition": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 187,
+            "prompt_ms": 47.625,
+            "prompt_per_token_ms": 0.25467914438502676,
+            "prompt_per_second": 3926.5091863517064,
+            "predicted_n": 140,
+            "predicted_ms": 708.006,
+            "predicted_per_token_ms": 5.093568345323741,
+            "predicted_per_second": 196.3260198359901
+          },
+          "output_token_count": 140,
+          "output_tokens_sha256": "e70434ff32f79840465f6e805d0d00a678a12a692eb4f2bd7ea649fffed479e9",
+          "content": "```python\ndef summarize_orders(orders):\n    totals = {}\n    for order in orders:\n        customer = order[\"customer\"]\n        amount = order[\"amount\"]\n        if customer not in totals:\n            totals[customer] = 0\n        totals[customer] += amount\n    return totals\n\n\ndef top_customers(totals, limit=5):\n    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)\n    return ranked[:limit]\n\n\ndef format_report(ranked):\n    lines = []\n    for customer, amount in ranked:\n        lines.append(f\"{customer}: {amount:.2f}\")\n    return \"\\n\".join(lines)\n```",
+          "edit_ast_correct": false,
+          "wall_seconds": 0.757032,
+          "stop_type": "eos"
+        }
+      ],
+      "hardware_log": [
+        "0.00.211.970 I load_tensors: offloaded 25/25 layers to GPU"
+      ]
+    }
+  ],
+  "summary": {
+    "edit": {
+      "stock": {
+        "median_decode_tps": 197.17262880931526,
+        "range_decode_tps": [
+          190.98889653760486,
+          200.51123151401848
+        ],
+        "median_wall_seconds": 0.753812,
+        "output_lengths": [
+          140
+        ],
+        "drafted_tokens": 0,
+        "accepted_draft_tokens": 0
+      },
+      "lookup": {
+        "median_decode_tps": 809.0933702710781,
+        "range_decode_tps": [
+          658.3715015133072,
+          824.1334740486891
+        ],
+        "median_wall_seconds": 0.22054849999999998,
+        "output_lengths": [
+          140
+        ],
+        "drafted_tokens": 864,
+        "accepted_draft_tokens": 720
+      },
+      "same_token_ids_all_replies": true,
+      "edit_ast_correct_all": false,
+      "decode_ratio": 4.103477116256073
+    },
+    "explain": {
+      "stock": {
+        "median_decode_tps": 197.94093613315658,
+        "range_decode_tps": [
+          183.7644471284463,
+          204.71338520476155
+        ],
+        "median_wall_seconds": 1.3106675,
+        "output_lengths": [
+          256
+        ],
+        "drafted_tokens": 0,
+        "accepted_draft_tokens": 0
+      },
+      "lookup": {
+        "median_decode_tps": 199.861849661473,
+        "range_decode_tps": [
+          192.23201726017362,
+          203.36452652750685
+        ],
+        "median_wall_seconds": 1.2985389999999999,
+        "output_lengths": [
+          256
+        ],
+        "drafted_tokens": 0,
+        "accepted_draft_tokens": 0
+      },
+      "same_token_ids_all_replies": true,
+      "edit_ast_correct_all": null,
+      "decode_ratio": 1.009704478345117
+    }
+  },
+  "upstream_method": "https://github.com/ggml-org/llama.cpp/blob/b12521/docs/speculative.md#n-gram-map-ngram-simple",
+  "observations": {
+    "edit": "Both configurations reproduced the original limit of 5. Both failed to change it to 3.",
+    "explain": "Both configurations reached the 256-token cap. This task measures speed to that cap."
+  }
+}

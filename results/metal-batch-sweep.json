@@ -1,0 +1,504 @@
+{
+  "engine": "ToshLLM llama-server",
+  "model": "qwen2.5-coder-0.5b-instruct-q4_k_m.gguf",
+  "model_bytes": 491400064,
+  "note": "Other local inference services were stopped before this sweep. Finder, Safari, Terminal and the benchmark session were open. CPU speed limits are recorded at each trial boundary.",
+  "command_settings": {
+    "context": 512,
+    "threads": 3,
+    "max_output_tokens": 128,
+    "temperature": 0,
+    "seed": 42,
+    "device": "MTL0",
+    "gpu_layers": "all",
+    "mmap": true,
+    "warmup": false,
+    "cache_ram_mib": 0,
+    "tosh_fa_amd": 1,
+    "batch_equals_ubatch": true
+  },
+  "prompt": "Return plain Python code with no Markdown, comments, or docstring. Define odd_squares_sum(values) using a for loop: add the square of each odd integer to a running total, then return the total. End with these two tests, one per line: assert odd_squares_sum([-3, 4, 5]) == 34; assert odd_squares_sum([]) == 0.",
+  "orders": [
+    [
+      16,
+      32,
+      64
+    ],
+    [
+      32,
+      64,
+      16
+    ],
+    [
+      64,
+      16,
+      32
+    ]
+  ],
+  "trials": [
+    {
+      "round": 1,
+      "position": 1,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 16,
+      "ubatch": 16,
+      "load_wall_s": 4.395,
+      "request_wall_s": 3.229,
+      "end_to_end_wall_s": 7.623,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 1712.226,
+        "prompt_per_token_ms": 15.287732142857143,
+        "prompt_per_second": 65.41192576213653,
+        "predicted_n": 101,
+        "predicted_ms": 1513.236,
+        "predicted_per_token_ms": 15.13236,
+        "predicted_per_second": 66.08354546151426
+      },
+      "cpu_speed_limit_before_pct": 47,
+      "cpu_speed_limit_after_pct": 47,
+      "allocation_log": [
+        "0.00.542.963 I load_tensors: offloading output layer to GPU",
+        "0.00.542.970 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.542.971 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.542.980 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.542.981 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.03.247.852 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.03.265.943 I sched_reserve: MTL0_Private compute buffer size =     3.06 MiB",
+        "0.03.265.951 I sched_reserve:        CPU compute buffer size =     0.61 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 1,
+      "position": 2,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 32,
+      "ubatch": 32,
+      "load_wall_s": 1.145,
+      "request_wall_s": 3.271,
+      "end_to_end_wall_s": 4.415,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 1792.408,
+        "prompt_per_token_ms": 16.003642857142857,
+        "prompt_per_second": 62.48577332839398,
+        "predicted_n": 101,
+        "predicted_ms": 1475.31,
+        "predicted_per_token_ms": 14.7531,
+        "predicted_per_second": 67.78236438443446
+      },
+      "cpu_speed_limit_before_pct": 47,
+      "cpu_speed_limit_after_pct": 45,
+      "allocation_log": [
+        "0.00.476.179 I load_tensors: offloading output layer to GPU",
+        "0.00.476.185 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.476.186 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.476.193 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.476.194 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.00.916.619 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.00.935.112 I sched_reserve: MTL0_Private compute buffer size =     5.81 MiB",
+        "0.00.935.121 I sched_reserve:        CPU compute buffer size =     1.22 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 1,
+      "position": 3,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 64,
+      "ubatch": 64,
+      "load_wall_s": 1.148,
+      "request_wall_s": 2.925,
+      "end_to_end_wall_s": 4.073,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 1389.289,
+        "prompt_per_token_ms": 12.404366071428571,
+        "prompt_per_second": 80.6167759191932,
+        "predicted_n": 101,
+        "predicted_ms": 1532.742,
+        "predicted_per_token_ms": 15.32742,
+        "predicted_per_second": 65.24255223644944
+      },
+      "cpu_speed_limit_before_pct": 45,
+      "cpu_speed_limit_after_pct": 41,
+      "allocation_log": [
+        "0.00.512.903 I load_tensors: offloading output layer to GPU",
+        "0.00.512.910 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.512.911 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.512.919 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.512.920 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.00.970.837 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.00.990.242 I sched_reserve: MTL0_Private compute buffer size =     7.69 MiB",
+        "0.00.990.251 I sched_reserve:        CPU compute buffer size =     2.45 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 2,
+      "position": 1,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 32,
+      "ubatch": 32,
+      "load_wall_s": 1.263,
+      "request_wall_s": 3.378,
+      "end_to_end_wall_s": 4.641,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 651.92,
+        "prompt_per_token_ms": 5.820714285714286,
+        "prompt_per_second": 171.8002208859983,
+        "predicted_n": 101,
+        "predicted_ms": 2723.089,
+        "predicted_per_token_ms": 27.23089,
+        "predicted_per_second": 36.72300097426122
+      },
+      "cpu_speed_limit_before_pct": 41,
+      "cpu_speed_limit_after_pct": 39,
+      "allocation_log": [
+        "0.00.548.561 I load_tensors: offloading output layer to GPU",
+        "0.00.548.569 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.548.570 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.548.580 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.548.581 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.051.167 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.073.214 I sched_reserve: MTL0_Private compute buffer size =     5.81 MiB",
+        "0.01.073.223 I sched_reserve:        CPU compute buffer size =     1.22 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 2,
+      "position": 2,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 64,
+      "ubatch": 64,
+      "load_wall_s": 1.259,
+      "request_wall_s": 4.543,
+      "end_to_end_wall_s": 5.802,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 624.022,
+        "prompt_per_token_ms": 5.571625,
+        "prompt_per_second": 179.480851636641,
+        "predicted_n": 101,
+        "predicted_ms": 3915.261,
+        "predicted_per_token_ms": 39.15261,
+        "predicted_per_second": 25.54108142471217
+      },
+      "cpu_speed_limit_before_pct": 39,
+      "cpu_speed_limit_after_pct": 37,
+      "allocation_log": [
+        "0.00.559.892 I load_tensors: offloading output layer to GPU",
+        "0.00.559.900 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.559.901 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.559.909 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.559.911 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.069.066 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.091.707 I sched_reserve: MTL0_Private compute buffer size =     7.69 MiB",
+        "0.01.091.716 I sched_reserve:        CPU compute buffer size =     2.45 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 2,
+      "position": 3,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 16,
+      "ubatch": 16,
+      "load_wall_s": 1.361,
+      "request_wall_s": 8.779,
+      "end_to_end_wall_s": 10.141,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 3123.461,
+        "prompt_per_token_ms": 27.888044642857142,
+        "prompt_per_second": 35.857659179992964,
+        "predicted_n": 101,
+        "predicted_ms": 5652.249,
+        "predicted_per_token_ms": 56.52249,
+        "predicted_per_second": 17.69207265992705
+      },
+      "cpu_speed_limit_before_pct": 37,
+      "cpu_speed_limit_after_pct": 37,
+      "allocation_log": [
+        "0.00.618.867 I load_tensors: offloading output layer to GPU",
+        "0.00.618.875 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.618.876 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.618.886 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.618.888 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.187.826 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.211.018 I sched_reserve: MTL0_Private compute buffer size =     3.06 MiB",
+        "0.01.211.026 I sched_reserve:        CPU compute buffer size =     0.61 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 3,
+      "position": 1,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 64,
+      "ubatch": 64,
+      "load_wall_s": 1.258,
+      "request_wall_s": 5.65,
+      "end_to_end_wall_s": 6.908,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 918.872,
+        "prompt_per_token_ms": 8.204214285714285,
+        "prompt_per_second": 121.88857642849058,
+        "predicted_n": 101,
+        "predicted_ms": 4727.557,
+        "predicted_per_token_ms": 47.275569999999995,
+        "predicted_per_second": 21.152574151935134
+      },
+      "cpu_speed_limit_before_pct": 37,
+      "cpu_speed_limit_after_pct": 41,
+      "allocation_log": [
+        "0.00.578.746 I load_tensors: offloading output layer to GPU",
+        "0.00.578.753 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.578.754 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.578.763 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.578.764 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.087.442 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.109.307 I sched_reserve: MTL0_Private compute buffer size =     7.69 MiB",
+        "0.01.109.315 I sched_reserve:        CPU compute buffer size =     2.45 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 3,
+      "position": 2,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 16,
+      "ubatch": 16,
+      "load_wall_s": 1.27,
+      "request_wall_s": 8.213,
+      "end_to_end_wall_s": 9.483,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 2056.559,
+        "prompt_per_token_ms": 18.36213392857143,
+        "prompt_per_second": 54.45990122335415,
+        "predicted_n": 101,
+        "predicted_ms": 6152.938,
+        "predicted_per_token_ms": 61.52938,
+        "predicted_per_second": 16.25239844770092
+      },
+      "cpu_speed_limit_before_pct": 41,
+      "cpu_speed_limit_after_pct": 41,
+      "allocation_log": [
+        "0.00.564.603 I load_tensors: offloading output layer to GPU",
+        "0.00.564.611 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.564.612 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.564.622 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.564.624 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.072.118 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.093.456 I sched_reserve: MTL0_Private compute buffer size =     3.06 MiB",
+        "0.01.093.466 I sched_reserve:        CPU compute buffer size =     0.61 MiB"
+      ],
+      "matches_reference_ast": true
+    },
+    {
+      "round": 3,
+      "position": 3,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "batch": 32,
+      "ubatch": 32,
+      "load_wall_s": 1.253,
+      "request_wall_s": 6.737,
+      "end_to_end_wall_s": 7.991,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 1407.673,
+        "prompt_per_token_ms": 12.568508928571429,
+        "prompt_per_second": 79.56393281678343,
+        "predicted_n": 101,
+        "predicted_ms": 5326.383,
+        "predicted_per_token_ms": 53.26383,
+        "predicted_per_second": 18.774466650257786
+      },
+      "cpu_speed_limit_before_pct": 41,
+      "cpu_speed_limit_after_pct": 39,
+      "allocation_log": [
+        "0.00.559.409 I load_tensors: offloading output layer to GPU",
+        "0.00.559.417 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.559.418 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.559.426 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.559.428 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.086.675 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.107.919 I sched_reserve: MTL0_Private compute buffer size =     5.81 MiB",
+        "0.01.107.928 I sched_reserve:        CPU compute buffer size =     1.22 MiB"
+      ],
+      "matches_reference_ast": true
+    }
+  ],
+  "summary_medians": {
+    "16": {
+      "successful_trials": 3,
+      "load_wall_s": 1.361,
+      "request_wall_s": 8.213,
+      "end_to_end_wall_s": 9.483,
+      "prompt_tokens_per_s": 54.46,
+      "generated_tokens_per_s": 17.692,
+      "request_wall_range_s": [
+        3.229,
+        8.779
+      ]
+    },
+    "32": {
+      "successful_trials": 3,
+      "load_wall_s": 1.253,
+      "request_wall_s": 3.378,
+      "end_to_end_wall_s": 4.641,
+      "prompt_tokens_per_s": 79.564,
+      "generated_tokens_per_s": 36.723,
+      "request_wall_range_s": [
+        3.271,
+        6.737
+      ]
+    },
+    "64": {
+      "successful_trials": 3,
+      "load_wall_s": 1.258,
+      "request_wall_s": 4.543,
+      "end_to_end_wall_s": 5.802,
+      "prompt_tokens_per_s": 121.889,
+      "generated_tokens_per_s": 25.541,
+      "request_wall_range_s": [
+        2.925,
+        5.65
+      ]
+    }
+  },
+  "all_answers_match_reference_ast": true,
+  "all_answers_byte_identical": true,
+  "all_completion_token_counts_identical": true
+}

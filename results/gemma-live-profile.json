@@ -1,0 +1,149 @@
+{
+  "model": "Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf",
+  "profile": {
+    "engine": "toshllm-engine-0.88.0-macos13-x86_64-avx2",
+    "binary_sha256": "690aac3a10b2ef64eef094a77d94e10d7559ef37074a16c5f418d120d1bfa806",
+    "repack": false,
+    "ctx": 1024,
+    "batch": 16,
+    "ubatch": 16,
+    "threads": 3,
+    "metal_device": "MTL0",
+    "gpu_layers_configured": 3,
+    "server_slots": 1,
+    "mmap": true,
+    "idle_sleep_s": 120,
+    "cache_ram_mib": 0
+  },
+  "startup": {
+    "launch_to_ready_and_model_alias_s": 22.919,
+    "launcher_poll_interval_s": 2,
+    "engine_elapsed_at_model_loaded_s": 20.996644999999997,
+    "web_ui_status": 200,
+    "log_extract": [
+      "ggml_metal: device 0: AMD Radeon Pro 560X (peer group 0, not bridged) probed SIMD-group width = 64 (32 = Apple/AMD RDNA, 64 = AMD GCN/Vega)",
+      "ggml_metal: wave64 decode ON: quantized/f16/bf16 mat-vec on GPU (see the allowlist in ggml_metal_library_get_pipeline_mul_mv)",
+      "0.00.944.664 I srv    load_model: loading model '~/.local/share/local-llm/models/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf'",
+      "0.20.972.265 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 1024, kv_unified = 'false'",
+      "0.20.996.645 I srv  server_run_i: model loaded",
+      "0.20.996.658 I srv  server_on_li: listening on http://127.0.0.1:8080"
+    ],
+    "allocation_evidence": "This production process uses normal log verbosity, which omits weight-buffer allocation lines and exact layer counts. Metal device initialization is logged; three layers are configured. The earlier matched-build verbose benchmark logged actual allocation."
+  },
+  "coding_request": {
+    "prompt": "Evaluate this Python function: def f(xs): return sum(x*x for x in xs if x % 2). Return only a JSON array of four integers giving f([]), f([1,2,3]), f([-3,-2,1]), and f([2,4]), in that order.",
+    "expected": [
+      0,
+      10,
+      10,
+      0
+    ],
+    "answer": "[0, 10, 10, 0]",
+    "correct": true,
+    "finish_reason": "stop",
+    "request_wall_s": 32.368,
+    "usage": {
+      "completion_tokens": 15,
+      "prompt_tokens": 78,
+      "total_tokens": 93,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 78,
+      "prompt_ms": 29025.197,
+      "prompt_per_token_ms": 372.11791025641025,
+      "prompt_per_second": 2.6873202617711778,
+      "predicted_n": 15,
+      "predicted_ms": 3327.023,
+      "predicted_per_token_ms": 237.64450000000002,
+      "predicted_per_second": 4.207966100625093
+    },
+    "memory_before": {
+      "swap_usage": "total = 2048.00M  used = 1199.00M  free = 849.00M  (encrypted)",
+      "swapins": 10092546,
+      "swapouts": 11680624,
+      "server_rss_mib": 2774.01
+    },
+    "memory_after": {
+      "swap_usage": "total = 3072.00M  used = 1964.25M  free = 1107.75M  (encrypted)",
+      "swapins": 10178572,
+      "swapouts": 11958164,
+      "server_rss_mib": 10761.29
+    },
+    "thermal_before": {
+      "cpu_speed_limit_pct": 97,
+      "cpu_scheduler_limit_pct": 100,
+      "thermal_warning": false
+    },
+    "thermal_after": {
+      "cpu_speed_limit_pct": 62,
+      "cpu_scheduler_limit_pct": 100,
+      "thermal_warning": false
+    },
+    "only_one_normal_generation_observed_in_current_process_through_test": false,
+    "server_slot_trace": {
+      "slots": 1,
+      "our_release_engine_s": 87.911264,
+      "next_request_launch_engine_s": 87.920785,
+      "next_request_launched_after_ours": true
+    }
+  },
+  "earlier_avx2_with_default_repack": {
+    "load_wall_s": 57.776,
+    "coding_request": {
+      "answer": "[0, 10, 10, 0]",
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 78,
+        "total_tokens": 93,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 78,
+        "prompt_ms": 26037.405,
+        "prompt_per_token_ms": 333.8128846153846,
+        "prompt_per_second": 2.9956902387161857,
+        "predicted_n": 15,
+        "predicted_ms": 4488.731,
+        "predicted_per_token_ms": 320.62364285714284,
+        "predicted_per_second": 3.1189215838507587
+      },
+      "request_wall_s": 30.613,
+      "thermal_after": {
+        "cpu_speed_limit_pct": 37,
+        "cpu_scheduler_limit_pct": 100,
+        "thermal_warning": false
+      },
+      "correct": true
+    },
+    "allocation_log": [
+      "0.00.787.804 I load_tensors: offloaded 3/31 layers to GPU",
+      "0.00.787.889 I load_tensors: MTL0_Private model buffer size =  1710.28 MiB",
+      "0.52.868.349 I llama_kv_cache: MTL0_Private KV buffer size =     4.00 MiB",
+      "0.53.001.764 I llama_kv_cache: MTL0_Private KV buffer size =     8.00 MiB",
+      "0.53.017.229 I sched_reserve: MTL0_Private compute buffer size =    22.53 MiB",
+      "7.27.544.296 D ~llama_context: MTL0_Private compute buffer size is  22.5343 MiB, matches expectation of  22.5343 MiB"
+    ]
+  },
+  "comparison_caveats": [
+    "One live no-repack trial and one earlier repack trial; order was not randomized and OS file caches were not cleared.",
+    "Live test was the first generation for the newly started process; the earlier coding task ran after a separate copy prompt.",
+    "The live server could receive user traffic. Its single slot was checked immediately before submitting; startup and thermal conditions differed.",
+    "Watcher readiness includes launch and polling; earlier readiness used a tighter polling cadence.",
+    "A second request began in the one server slot 9.5 ms after this request released it. It did not run in the slot concurrently, but had likely already queued and can affect the post-request RSS/swap sample."
+  ],
+  "idle_unload": {
+    "observed": true,
+    "idle_wait_s": 120.412694,
+    "server_rss_after_unload_mib": 83.22,
+    "server_cpu_percent_after_unload": 0.0,
+    "source": "server entering-sleep log and process RSS without an HTTP wake"
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "engine": "ToshLLM llama-server",
+  "model": "qwen2.5-coder-0.5b-instruct-q4_k_m.gguf",
+  "model_bytes": 491400064,
+  "note": "A separate Gemma web-chat request was active on the Mac; the benchmark ran with that concurrent workload.",
+  "command_settings": {
+    "context": 512,
+    "batch": 16,
+    "ubatch": 16,
+    "threads": 3,
+    "max_output_tokens": 128,
+    "temperature": 0,
+    "seed": 42,
+    "mmap": true,
+    "warmup": false,
+    "cache_ram_mib": 0,
+    "tosh_fa_amd": 1,
+    "gpu_layers": "all"
+  },
+  "prompt": "Return plain Python code with no Markdown, comments, or docstring. Define odd_squares_sum(values) using a for loop: add the square of each odd integer to a running total, then return the total. End with these two tests, one per line: assert odd_squares_sum([-3, 4, 5]) == 34; assert odd_squares_sum([]) == 0.",
+  "trials": [
+    {
+      "trial": 1,
+      "mode": "cpu",
+      "device": "none",
+      "requested_gpu_layers": "0",
+      "load_wall_s": 2.625,
+      "request_wall_s": 18.235,
+      "end_to_end_wall_s": 20.86,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 89,
+        "prompt_tokens": 112,
+        "total_tokens": 201,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 9083.888,
+        "prompt_per_token_ms": 81.10614285714287,
+        "prompt_per_second": 12.329522336691072,
+        "predicted_n": 89,
+        "predicted_ms": 9146.485,
+        "predicted_per_token_ms": 103.93732954545455,
+        "predicted_per_second": 9.621182344911734
+      },
+      "cpu_speed_limit_before_pct": 43,
+      "cpu_speed_limit_after_pct": 43,
+      "allocation_log": [
+        "0.00.588.812 I load_tensors: offloading 0 repeating layers to GPU",
+        "0.00.588.820 I load_tensors: offloaded 0/25 layers to GPU",
+        "0.00.588.829 I load_tensors:   CPU_Mapped model buffer size =   462.96 MiB",
+        "0.00.599.554 I llama_kv_cache:        CPU KV buffer size =     6.00 MiB",
+        "0.00.608.610 I sched_reserve:        CPU compute buffer size =     1.18 MiB"
+      ]
+    },
+    {
+      "trial": 1,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "load_wall_s": 1.362,
+      "request_wall_s": 2.871,
+      "end_to_end_wall_s": 4.233,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 986.705,
+        "prompt_per_token_ms": 8.809866071428571,
+        "prompt_per_second": 113.50910353145062,
+        "predicted_n": 101,
+        "predicted_ms": 1881.138,
+        "predicted_per_token_ms": 18.81138,
+        "predicted_per_second": 53.15931101280182
+      },
+      "cpu_speed_limit_before_pct": 43,
+      "cpu_speed_limit_after_pct": 43,
+      "allocation_log": [
+        "0.00.612.886 I load_tensors: offloading output layer to GPU",
+        "0.00.612.895 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.612.896 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.612.905 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.612.907 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.122.669 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.142.931 I sched_reserve: MTL0_Private compute buffer size =     3.06 MiB",
+        "0.01.142.939 I sched_reserve:        CPU compute buffer size =     0.61 MiB"
+      ]
+    },
+    {
+      "trial": 2,
+      "mode": "gpu",
+      "device": "MTL0",
+      "requested_gpu_layers": "all",
+      "load_wall_s": 1.265,
+      "request_wall_s": 2.894,
+      "end_to_end_wall_s": 4.159,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2  # Add the square of the odd number to the total\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 112,
+        "total_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 1018.756,
+        "prompt_per_token_ms": 9.096035714285714,
+        "prompt_per_second": 109.9380028191245,
+        "predicted_n": 101,
+        "predicted_ms": 1871.681,
+        "predicted_per_token_ms": 18.71681,
+        "predicted_per_second": 53.42790785395588
+      },
+      "cpu_speed_limit_before_pct": 43,
+      "cpu_speed_limit_after_pct": 39,
+      "allocation_log": [
+        "0.00.528.668 I load_tensors: offloading output layer to GPU",
+        "0.00.528.675 I load_tensors: offloading 23 repeating layers to GPU",
+        "0.00.528.676 I load_tensors: offloaded 25/25 layers to GPU",
+        "0.00.528.685 I load_tensors:   CPU_Mapped model buffer size =    89.26 MiB",
+        "0.00.528.686 I load_tensors: MTL0_Private model buffer size =   373.71 MiB",
+        "0.01.035.920 I llama_kv_cache: MTL0_Private KV buffer size =     6.00 MiB",
+        "0.01.055.596 I sched_reserve: MTL0_Private compute buffer size =     3.06 MiB",
+        "0.01.055.603 I sched_reserve:        CPU compute buffer size =     0.61 MiB"
+      ]
+    },
+    {
+      "trial": 2,
+      "mode": "cpu",
+      "device": "none",
+      "requested_gpu_layers": "0",
+      "load_wall_s": 1.055,
+      "request_wall_s": 20.307,
+      "end_to_end_wall_s": 21.362,
+      "answer": "```python\ndef odd_squares_sum(values):\n    total = 0\n    for value in values:\n        if value % 2 != 0:  # Check if the number is odd\n            total += value ** 2\n    return total\n\n# Test cases\nassert odd_squares_sum([-3, 4, 5]) == 34\nassert odd_squares_sum([]) == 0\n```",
+      "python_syntax_valid": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 89,
+        "prompt_tokens": 112,
+        "total_tokens": 201,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 112,
+        "prompt_ms": 10101.354,
+        "prompt_per_token_ms": 90.19066071428571,
+        "prompt_per_second": 11.087622510803998,
+        "predicted_n": 89,
+        "predicted_ms": 10200.695,
+        "predicted_per_token_ms": 115.91698863636363,
+        "predicted_per_second": 8.626863169617366
+      },
+      "cpu_speed_limit_before_pct": 39,
+      "cpu_speed_limit_after_pct": 39,
+      "allocation_log": [
+        "0.00.575.836 I load_tensors: offloading 0 repeating layers to GPU",
+        "0.00.575.843 I load_tensors: offloaded 0/25 layers to GPU",
+        "0.00.575.852 I load_tensors:   CPU_Mapped model buffer size =   462.96 MiB",
+        "0.00.587.223 I llama_kv_cache:        CPU KV buffer size =     6.00 MiB",
+        "0.00.597.212 I sched_reserve:        CPU compute buffer size =     1.18 MiB"
+      ]
+    }
+  ],
+  "summary_medians": {
+    "cpu": {
+      "successful_trials": 2,
+      "load_wall_s": 1.84,
+      "request_wall_s": 19.271,
+      "end_to_end_wall_s": 21.111,
+      "prompt_tokens_per_s": 11.709,
+      "generated_tokens_per_s": 9.124
+    },
+    "gpu": {
+      "successful_trials": 2,
+      "load_wall_s": 1.313,
+      "request_wall_s": 2.883,
+      "end_to_end_wall_s": 4.196,
+      "prompt_tokens_per_s": 111.724,
+      "generated_tokens_per_s": 53.294
+    }
+  },
+  "all_answers_byte_identical": false,
+  "all_answers_python_ast_identical": true
+}
