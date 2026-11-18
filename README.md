@@ -12,7 +12,7 @@ Rebuilding the ToshLLM inference engine for the Core i9 raised sustained Gemma 4
 
 ## More measurements
 
-The Intel Qwen edit package includes the official Q4_K_M weights, the tested launcher, the model card and its license. Install the Intel AVX2 engine as described below, extract the package and run `sh ./run-intel-mac.sh`. [Download the model package](https://github.com/0x89Parth/intel-mac-llm-bench/releases/tag/intel-qwen-v1) · [Model card and settings](profiles/qwen-intel-mac/README.md)
+The Intel Qwen edit package includes the official Q4_K_M weights, the tested launcher, the model card and its license. Install the Intel AVX2 engine as described below, extract the package and run `sh ./run-intel-mac.sh`. [Model on Hugging Face](https://huggingface.co/Parth1612/Qwen2.5-Coder-0.5B-Instruct-Intel-Mac-GGUF) · [Download the GitHub release](https://github.com/0x89Parth/intel-mac-llm-bench/releases/tag/intel-qwen-v1) · [Model card and settings](profiles/qwen-intel-mac/README.md)
 
 | Hardware and workload | Measured result |
 |---|---|
